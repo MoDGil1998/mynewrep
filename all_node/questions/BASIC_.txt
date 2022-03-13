@@ -1,0 +1,444 @@
+----->>> Basic JS -->>>
+___________________________________________________________________________________________________________________________________________________________________
+Q:Difference between Asynchronous calls and Synchronous calls in node.js
+    In synchronous operations tasks are performed one at a time and only when one is completed, the following is unblocked. In other words, you need to wait for a task to finish to move to the next one.
+    In asynchronous operations, on the other hand, you can move to another task before the previous one finishes. This way, with asynchronous programming you’re able to deal with multiple requests simultaneously, thus completing more tasks in a much shorter period of time.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is promises and promise.all ?
+A Promise is a value returned by an asynchronous function to indicate the completion of the processing carried out by the asynchronous function.
+Promises can be nested within each other to make code look better and easier to maintain when an asynchronous function need to be called after another asynchronous function
+
+Small example:    var myPromise = new Promise(function(resolve, reject) {
+        request.get(options, function(err, resp, body) {
+          if (err) {
+              reject(err);
+          } 
+          else {
+             resolve(JSON.parse(body));
+          }
+       })
+  });
+
+promise.all: The Promise.all() method is actually a method that takes an array of promises(an   iterable) as an input. It returns a single Promise that resolves when all of the promises passed as an iterable, which have resolved or when the iterable contains no promises. In simple way, if any of the passed-in promises reject, the Promise.all() method asynchronously rejects the value of the promise that already rejected, whether or not the other promises have resolved.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is observable?
+An observable is often used to retrieve data asynchronously and transform it into a form that is more useful to its subscribers. When there is a change in the state of an observable it emits data items or sends notifications by calling the observers’ methods.
+ 
+observable Provide the map for forEach, filter, reduce, retry, and retryWhen operators.
+observableDeliver errors to the subscribers.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is subscriber and unsubscriber?
+
+A Subscription is an object that represents a disposable resource, usually the execution of an Observable. 
+A Subscription has one important method,unsubscribe, that takes no argument and just disposes the resource held by the subscription.  
+Subscription was also called "Disposable".(in previous versions of RxJS)
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is Event?
+Every action on a computer is an event. Like when a connection is made or a file is opened. 
+Objects in Node.js can fire event.Node.js has a built-in module, called "Events", where you can create-, fire-, and listen for- your own events.
+    
+To include the built-in Events module use the require() method. 
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is Event loop ?
+The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is
+single-threaded — by offloading operations to the system kernel whenever possible.
+Since most modern kernels are multi-threaded, they can handle multiple operations executing in the background.
+When one of these operations completes, the kernel tells Node.js so that the appropriate callback may be added to the 
+poll queue to eventually be executed
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is Deligates?
+The delegate() method attaches one or more event handlers for specified elements that are children of selected elements, and specifies a 
+function to run when the events occur.
+Event handlers attached using the delegate() method will work for both current and FUTURE elements (like a new element created by a script).
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What are Callbacks?
+  Callback is an asynchronous equivalent for a function. A callback function is called at the completion of a given task. 
+  Node makes heavy use of callbacks. All the APIs of Node are written in such a way that they support callbacks.
+
+  For example, a function to read a file may start reading file and return the control to the execution environment immediately so that the next instruction
+  can be executed. Once file I/O is complete, it will call the callback function while passing the callback function, the content of the file as a parameter. 
+  So there is no blocking or wait for File I/O. This makes Node.js highly scalable, as it can process a high number of requests without waiting for any function
+  to return results.
+
+EXAMPLE:
+  var fs = require("fs");
+  var data = fs.readFileSync('file_name.txt');
+
+  console.log(data.toString());
+  console.log("End");
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is callback hells ?
+  Callback hell in Node. js is the situation in which we have complex nested callbacks. In this, each callback takes arguments that have been obtained as a result
+  of previous callbacks. This kind of callback structure leads to lesser code readability and maintainability
+
+
+--------------------------------------------------------
+                       NODE.JS
+------------------------------------------------------
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is Http Module and how to implement it in node.js  ?
+  Node. js has a built-in module called HTTP, which allows Node. js to transfer data over the Hyper Text Transfer Protocol (HTTP). 
+  To include the HTTP module, use the require() method: var http = require('http');
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:How to create a server by using Http module in node.js ?
+
+BasicExample:
+var http = require ('http');
+http.createServer (function(req,res){
+res.write("Hello world from node js server");
+res.end();
+
+}).listen(7070)
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is chaining blocks or method?
+Chaining is also called as Cascading, refers to repeatedly calling one method after another on an object, in one continuous line of code. 
+This technique abounds in jQuery and other JavaScript libraries and it is even common in some JavaScript native methods.
+It can be achieved using the async npm module.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is higher order function?
+In Javascript, functions can be assigned to variables in the same way that strings or arrays can.
+They can be passed into other functions as parameters or returned from them as well.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:what is stateless components? (REACT)
+Stateless components are those components which don't have any state at all, which means you can't use this. setState inside these components. 
+It is like a normal function with no render method. 
+It has no lifecycle, so it is not possible to use lifecycle methods such as componentDidMount and other hooks
+A “higher-order function” is a function that accepts functions as parameters and/or returns a function
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:what is Shadow DOM? 
+Shadow DOM is a browser technology that’s used to scope variables and CSS in web components. For starters, a DOM is an object, and you can’t possibly do all you        need to do with 
+A single object without it stepping over boundaries you want to certainly keep separate. This means that shadow DOMs allow for encapsulation, that is, the ability      to keep markup
+structure, style, and behavior separated and hidden from other code so they don’t clash.
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is Cluster?How to Create Cluster?
+Node.js runs single threaded programming, which is very memory efficient, but to take advantage of computers multi-core systems, the Cluster module allows you to easily create child processes that each runs on their own single thread, to handle the load.
+The syntax for including the cluster module in your application:
+
+var cluster = require('cluster');
+
+_________________________Cluster Properties and Methods_____________________________________
+
+disconnect()--------->	Disconnects all workers 
+exitedAfterDisconnect---------> Returns true if a worker was exited after disconnect, or the kill method
+fork()--------->Creates a new worker, from a master
+id--------->A unique id for a worker
+isConnected--------->Returns true if the worker is connected to its master, otherwise false
+isDead	--------->Returns true if the worker's process is dead, otherwise false
+isMaster--------->Returns true if the current process is master, otherwise false
+isWorker--------->Returns true if the current process is worker, otherwise false
+kill()	--------->Kills the current worker process Returns the global Child Process
+schedulingPolicy--------->Sets or gets the schedulingPolicy
+send()	--------->sends a message to a master or a worker
+settings--------->Returns an object containing the cluster's settings
+setupMaster()	--------->Changes the settings of a cluster
+worker--------->Returns the current worker object
+workers--------->Returns all workers of a master
+___________________________________________________________________________________________________________________________________________________________________
+Q:What are worker threads?
+Worker Threads in Node.js is useful for performing heavy JavaScript tasks. 
+With the help of threads, Worker makes it easy to run javascript codes in parallel making it much faster and efficient. 
+We can do heavy tasks without even disturbing the main thread.
+
+ #They run a single process with multiple threads.
+ #Executing one event loop per thread.
+ #Running single JS Engine instance per thread.
+ #Executing single Node.js instance per thread.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What are async.queue?
+The async. queue() method returns a queue that is further used for concurrent processing of processes i.e.
+ multiple processing of items at a time/instant
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What are child process and types of child processes?
+The Node.js child process module provides the ability to spawn child processes in a similar manner to popen.
+There are three major way to create child process:
+
+child_process.exec() method: This method runs a command in a console and buffers the output.
+child_process.spawn() method: This method launches a new process with a given command.
+child_process.fork() method: This method is a special case of spawn() method to create child processes.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:what is streams and types ?
+Streams are objects that let you read data from a source or write data to a destination in continuous fashion. They are data-handling method and are used to read or write input into output sequentially.
+
+There are 4 types of streams in Node.js:
+1. Writable: streams to which we can write data. For example, fs.createWriteStream() lets us write data to a file using streams.
+2. Readable: streams from which data can be read. For example: fs.createReadStream() lets us read the contents of a file.
+3. Duplex: streams that are both Readable and Writable. For example, net.Socket
+4. Transform: streams that can modify or transform the data as it is written and read
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:How to set (mssql) db connection in node.js?
+
+Method1:
+
+const sql = require('mssql');
+
+let config = {
+    user: 'Sahil_Sharma',
+    password: 'Sahil_Sharma_123',
+    server: '192.168.6.196', // You can use 'localhost\\instance' to connect to named instance
+    database: 'Sahil_Sharma'
+
+}
+
+const connection1 = new sql.ConnectionPool(config, (err) => {
+    if (err) {
+        throw err;
+    }
+
+    let request = new sql.Request(connection1); // or: var request = connection1.request(); 
+    request.query('select * from Student', (err, recordset) => {
+        // ... error checks 
+
+        console.dir(recordset);
+    });
+
+});
+
+
+Method2:var sql = require('mssql');
+
+var dbconfig = {
+    server: '192.168.6.196',
+    database: 'Sahil_Sharma',
+    user: 'Sahil_Sharma',
+    password: 'Sahil_Sharma_123',
+    port: 54299
+   
+};
+
+function getstd() {
+    var conn = new sql.ConnectionPool(dbconfig);
+    var req = new sql.Request(conn);
+
+    conn.connect(function (err) {
+        if (err) {
+            console.log(err);
+            return;
+
+        }
+        req.query("SELECT * FROM Student", function (err, recordset) {
+            if (err) {
+                console.log(err);
+
+            }
+            else {
+                console.log(recordset);
+            }
+            conn.close()
+
+        });
+    });
+}
+getstd();
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is Module ?
+In Node. js, Modules are the blocks of encapsulated code that communicates with an external application on the basis of their related functionality. 
+Modules can be a single file or a collection of multiples files/folders.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:How we Export and Import Module 
+Export:->> module.exports = 'Hello world'; (save in file.js)
+
+Import:->>var msg = require('./Messages.js');(save in anotherfile.js)
+console.log(msg);
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:Difference b/w spawn() and folk()?
+Spawn--> It creates a new process through command rather than running on the same node process.	
+Fork-->It makes several individual processes (child processes) but all of them run on the same node process as the parent.
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:Difference b/w put and post()?
+The difference between POST and PUT is that PUT requests are idempotent.
+That is, calling the same PUT request multiple times will always produce the same result. 
+In contrast, calling a POST request repeatedly have side effects of creating the same resource multiple times.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:what is NPM Dependency and Dev Dependency   
+Dependency : Packages that are needed for your application to work in production.
+DevDepencency : Packages that are only needed in your local development or testing 
+
+  When you install an npm package using npm install <package-name>, you are installing it as a dependency.
+  The package is automatically listed in the package.json file, under the dependencies list (as of npm 5: before you had to manually specify --save).
+  When you add the -D flag, or --save-dev, you are installing it as a development dependency, which adds it to the devDependencies list.
+  Development dependencies are intended as development-only packages, that are unneeded in production. For example testing packages, webpack or Babel.
+  When you go in production, if you type npm install and the folder contains a package.json file, they are installed, as npm assumes this is a development deploy.
+  You need to set the --production flag (npm install --production) to avoid installing those development dependencies.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:What is File descriptor in node.js ?
+A file descriptor is a reference to an open file, a number (fd) returned by opening the file using the open() method offered by the fs module. 
+This number (rk) uniquely identifies an open file in operating system:
+		const fs = require('fs')
+
+	fs.open('/Users/joe/test.txt', 'r', (err, rk) => { 
+ //fd is our file descriptor
+ })
+ 
+The r we used as the second parameter to the fs.open() call.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q: Node.js OS module.
+This module provides many functions that you can use to retrieve information from the underlying operating system and the computer 
+the program  runs on, and interact with it.
+
+Syntax:-
+The syntax for including the OS module in your application:
+var os = require('os');
+
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:what is Error handling in Node.js 
+ Error handling refers to the anticipation, detection, and resolution of programming, application, and communications errors. Specialized programs, 
+    called error handlers, are available for some applications.
+
+   Try-catch blocks are effective for synchronous functions, asynchronous functions can be dealt with callbacks, promises, and async-await. Try-catch
+   is synchronous means that if an asynchronous function throws an error in a synchronous try/catch block, no error throws. Errors thrown in Node.js 
+   applications can be handled in the following ways:
+	
+     1. Using try-catch block
+     2. Using callbacks
+     3. Using promises and promise callbacks
+     4. Using async-await
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:Buffer in Node JS ?
+Node.js provides Buffer class to store raw data similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap. 
+Buffer class is used because pure JavaScript is not nice to binary data.
+So, when dealing with TCP streams or the file system, it's necessary to handle octet streams.
+Buffer class is a global class. It can be accessed in application without importing buffer module.
+
+___________________________________________________________________________________________________________________________________________________________________
+Q:concept of  stack,Heap,callby value and call by reference.
+stack->A stack is a conceptual structure consisting of a set of homogeneous elements and is based on the principle of last in first out (LIFO). 
+       It is a commonly used abstract data type with two major operations, namely push and pop.
+
+Heap->The heap is a different space for storing data where JavaScript stores objects and functions. 
+      Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. 
+      Instead, more space will be allocated as needed. 
+      Allocating memory this way is also called dynamic memory allocation.
+
+Callby value->When a variable is passed as a parameter to a function, if any changes are made to the parameter, the original variable will remain unaffected.
+
+Call by reference->When a variable's reference(address) and not its value is passed to a function's parameter, any changes made to the parameter will update the original variable reference. 
+     This is known as call by reference and this is true for all values having a non-primitive data typ
+     This is known as call by value and this is true for all values having a primitive data type.11-Jun
+ 
+___________________________________________________________________________________________________________________________________________________________________
+Q:Difference between Cache and Session in Node JS
+ Session data is stored at the user level but caching data is stored at the application level and shared by all the users.
+ Sessions may not improve performance whereas Cache will improve site performance.
+ Items in cache can expire after given time to cache while items in session will stay till session expires.
+ Sessions may change from user to user whereas a single Cache will be maintained for the entire application.
+ Cache won't maintain any state, whereas Sessions will maintain separate state for every user.
+
+_________________________________________________________________________________________________________________________________________________________________
+Q:What is an event emitter?
+All event properties and methods are an instance of an EventEmitter object. 
+To be able to access these properties and methods, create an EventEmitter object.
+The EventEmitter is a module that facilitates communication/interaction between objects in Node. EventEmitter is at the core of Node asynchronous 
+    event-driven architecture.
+
+    const EventEmitter = require('events')
+    const eventEmitter = new EventEmitter()
+
+This object exposes, among many others, the on and emit methods.
+   emit is used to trigger an event
+   on is used to add a callback function that's going to be executed when the event is triggered
+
+_________________________________________________________________________________________________________________________________________________________________
+Q:web assembly?
+
+WebAssembly is a high-performance assembly-like language that can be compiled from a myriad of languages including C/C++, Rust, and AssemblyScript. As of right now, it is supported by Chrome, Firefox, Safari, Edge, and Node.js!
+The WebAssembly specification details two file formats, a binary format called a WebAssembly Module with a .wasm extension and corresponding text representation called WebAssembly Text format with a .wat extension.
+
+Key Concepts
+Module - A compiled WebAssembly binary, ie a .wasm file.
+Memory - A resizable ArrayBuffer.
+Table - A resizable typed array of references not stored in Memory.
+Instance - An instantiation of a Module with its Memory, Table, and variables.
+In order to use WebAssembly, you need a .wasm binary file and a set of APIs to communicate with WebAssembly. Node.js provides the necessary APIs via the global WebAssembly object.
+
+console.log(WebAssembly);
+
+Object [WebAssembly] {
+  compile: [Function: compile],
+  validate: [Function: validate],
+  instantiate: [Function: instantiate]
+}
+______________________________________________________________________________________________________________________________________________________________
+Q:what is typescript?
+TypeScript is JavaScript for application-scale development.”
+TypeScript is a strongly typed, object oriented, compiled language. It was designed by Anders Hejlsberg (designer of C#) at Microsoft.
+TypeScript is both a language and a set of tools. 
+TypeScript is a typed superset of JavaScript compiled to JavaScript. 
+In other words, TypeScript is JavaScript plus some additional features.
+
+
+Features of TypeScript
+  TypeScript is just JavaScript. TypeScript starts with JavaScript and ends with JavaScript. Typescript adopts the basic building blocks of your program from JavaScript. Hence, you only need to know JavaScript to use TypeScript.
+  All TypeScript code is converted into its JavaScript equivalent for the purpose of execution.
+  TypeScript supports other JS libraries. Compiled TypeScript can be consumed from any JavaScript code. 
+  TypeScript-generated JavaScript can reuse all of the existing JavaScript frameworks, tools, and libraries.
+
+JavaScript is TypeScript. This means that any valid .js file can be renamed to .ts and compiled with other TypeScript files.
+TypeScript is portable. TypeScript is portable across browsers, devices, and operating systems. 
+It can run on any environment that JavaScript runs on. Unlike its counterparts, TypeScript doesn’t need a dedicated VM or a specific runtime environment to execute.
+
+______________________________________________________________________________________________________________________________________________________________
+Q:Method to manipulate data in db?
+Data manipulation is the process of changing or altering data in order to make it more readable and organized
+Data manipulation commands are used to manipulate data in the database.
+
+Some of the Data Manipulation Commands are- SELECT,UPDATE,DELETE,INSERT,MERGE..etc
+
+______________________________________________________________________________________________________________________________________________________________
+Q: Transactional statements?
+
+A transaction is the logical work unit that performs a single activity or multiple activities in a database.
+Transactions may consist of a single read, write, delete, or update operations or a combination of these. 
+
+Properties of Transactions
+Transactions have the following four standard properties, usually referred to by the acronym ACID.
+Atomicity − ensures that all operations within the work unit are completed successfully. Otherwise, the transaction 
+is aborted at the point of failure and all the previous operations are rolled back to their former state.
+
+Consistency − ensures that the database properly changes states upon a successfully committed transaction.
+Isolation − enables transactions to operate independently of and transparent to each other.
+Durability − ensures that the result or effect of a committed transaction persists in case of a system failure.
+
+Transaction Control
+The following commands are used to control transactions.
+
+COMMIT − to save the changes.
+
+ROLLBACK − to roll back the changes.
+
+SAVEPOINT − creates points within the groups of transactions in which to ROLLBACK.
+
+SET TRANSACTION − Places a name on a transaction.
+
+______________________________________________________________________________________________________________________________________________________________
